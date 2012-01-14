@@ -38,7 +38,9 @@ module ResqueExtension
 
 
   def publish(exchange, *args)
-    
+    (queues_for(exchange) || []).each do |queue|
+      push queue[:queue], :class => queue[:class], :args => args
+    end
   end
 
 end
