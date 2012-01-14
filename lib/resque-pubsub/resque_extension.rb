@@ -36,7 +36,7 @@ module ResqueExtension
     end
   end
 
-  def all_exchanges
+  def exchanges
     redis.smembers(:exchanges).map do |exchange|
       {
         :exchange => exchange,

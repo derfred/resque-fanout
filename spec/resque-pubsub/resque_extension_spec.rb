@@ -33,7 +33,7 @@ describe "Resque internals" do
     it "should add mapping to all_exchanges" do
       Resque.subscribe :new_user, :class => BillingListener
 
-      exchanges = Resque.all_exchanges
+      exchanges = Resque.exchanges
 
       exchanges.size.should == 1
       exchanges.first[:exchange].should == "new_user"
