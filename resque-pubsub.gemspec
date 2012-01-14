@@ -18,7 +18,9 @@ Gem::Specification.new do |s|
 A Resque plugin that provides endpoints which distributes Jobs submitted to them to (multiple) subscribing queues. Useful for loosely coupled inter-application communication.
 desc
 
+  s.add_development_dependency "rspec", "~> 2.3.0"
   s.add_development_dependency "bundler", ">= 1.0.0"
-  s.add_runtime_dependency(%q<redis>, [">= 2.0.1"])
-  s.add_runtime_dependency(%q<resque>, [">= 1.19.0"])
+
+  s.add_runtime_dependency %q<redis>, [">= 2.0.1"]
+  s.add_runtime_dependency %q<resque>, [">= 1.19.0"]
 end
