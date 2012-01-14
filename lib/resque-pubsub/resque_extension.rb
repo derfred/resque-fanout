@@ -15,7 +15,14 @@ module ResqueExtension
   end
 
   def unsubscribe(exchange, options={})
-    
+    raise ArgumentError, "either class or queue param must be supplier" unless options[:queue] || options[:class]
+
+    queue = options[:queue] || queue_from_class(options[:class])
+    redis.srem("exchanges:#{exchange.to_s}", queue.to_s)
+    redis.hdel("exchanges:class:#{exchange.to_s}", queue.to_s)
+    if redis.scard("exchanges:#{exchange.to_s}") == 0
+      redis.srem(:exchanges, exchange.to_s)
+    end
   end
 
   def queues_for(exchange)
