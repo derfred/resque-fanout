@@ -5,3 +5,4 @@ require 'resque/server'
 
 require 'resque-pubsub/resque_extension'
 require 'resque-pubsub/job_extension'
+require 'resque-pubsub/pubsub_server'

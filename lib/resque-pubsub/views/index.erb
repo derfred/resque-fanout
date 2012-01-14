@@ -1,0 +1,98 @@
+<style type="text/css" media="screen">
+  .flash {
+    font-size: 190%;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .flash.notice {
+    background: #61BF55;
+  }
+
+  .flash.error {
+    background: #E47E74;
+  }
+
+  #main form.pubsub-remove {
+    float: left;
+    margin-left: 20px;
+    margin-top: -5px;
+  }
+  .mapping span {
+    float: left;
+  }
+
+  #main #new-mapping {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  #new-mapping p {
+    clear: left;
+  }
+
+  #new-mapping label {
+    width: 15em;
+    display: block;
+    float: left;
+  }
+</style>
+
+<%= display_flash %>
+
+<h1 class='wi'>Pubsub Exchanges</h1>
+
+<% if @exchanges.empty? %>
+  <p class='intro'>There are no exchanges defined</p>
+<% else %>
+  <p class='intro'>There are <%= @exchanges.size %> exchanges defined</p>
+
+  <table>
+    <tr>
+      <th>Exchange</th>
+      <th>Queues</th>
+    </tr>
+    <% for exchange in @exchanges %>
+      <tr>
+        <td><%= exchange[:exchange] %></td>
+        <td>
+          <ul>
+            <% for queue in exchange[:queues] %>
+              <li class="mapping">
+                <span><%= queue[:queue] %><%= "(=> #{queue[:class]})" if queue[:class] %></span>
+                <form method="POST" action="<%= u(:pubsub) %>/<%= exchange[:exchange] %>/<%= queue[:queue] %>/remove" class='pubsub-remove'>
+                  <input type='submit' name='' value='Remove Mapping' onclick='return confirm("Are you absolutely sure? This cannot be undone.");' />
+                </form>
+              </li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<h2>Add new mapping</h2>
+
+<form method="POST" action="<%= u(:pubsub) %>" id='new-mapping'>
+  <p>
+    <label>Exchange Name</label>
+    <input type="text" name="exchange">
+  </p>
+  <p>
+    <label>Queue Name</label>
+    <select name="queue">
+      <% for queue in @queues %>
+        <option><%= queue[:name] %></option>
+      <% end %>
+    </select>
+  </p>
+  <p>
+    <label>Class Name (optional)</label>
+    <input type="text" name="class">
+  </p>
+  <input type='submit' name='' value='Create Mapping' />
+</form>
+
+
