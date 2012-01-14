@@ -36,6 +36,15 @@ module ResqueExtension
     end
   end
 
+  def all_exchanges
+    redis.smembers(:exchanges).map do |exchange|
+      {
+        :exchange => exchange,
+        :queues => queues_for(exchange)
+      }
+    end
+  end
+
 
   def publish(exchange, *args)
     (queues_for(exchange) || []).each do |queue|

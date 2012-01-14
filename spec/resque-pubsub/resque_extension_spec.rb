@@ -30,6 +30,15 @@ describe "Resque internals" do
       end.should raise_error(ArgumentError)
     end
 
+    it "should add mapping to all_exchanges" do
+      Resque.subscribe :new_user, :class => BillingListener
+
+      exchanges = Resque.all_exchanges
+
+      exchanges.size.should == 1
+      exchanges.first[:exchange].should == "new_user"
+    end
+
   end
 
   describe "unsubscribe" do
