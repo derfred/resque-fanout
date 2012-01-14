@@ -26,6 +26,7 @@ Resque.subscribe :new_user, :class => BillingListener
 ```
 
 In the user accounts application define this worker:
+
 ``` ruby
 class AccountListener
 
@@ -41,6 +42,7 @@ Resque.subscribe :new_user, :class => AccountListener
 ```
 
 When a new user registers in the frontend application execute:
+
 ``` ruby
 Resque.publish :new_user, :user_name => :feynman, :account_type => :qed
 ```
@@ -54,6 +56,7 @@ PubSub semantics
 The mapping between exchange and queues is maintained in the Redis server and can therefore change at runtime. The job distribution is performed upon job submission. Exchanges override queues with the same name.
 
 The mapping is written to Redis by the following call:
+
 ``` ruby
 Resque.subscribe :new_user, :class => AccountListener
 ```
@@ -91,6 +94,7 @@ the job will be performed by all three workers in their respective application c
 
 
 The `Resque.subscribe` method provides another mode which does not set the handling class:
+
 ``` ruby
 Resque.subscribe :new_user, :queue => :accounts
 ```
