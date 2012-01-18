@@ -1,33 +1,33 @@
 module Resque
-  module PubsubServer
+  module FanoutServer
 
     VIEW_PATH = File.join(File.dirname(__FILE__), 'views')
 
     def self.registered(app)
       # index
-      app.get "/pubsub/?" do
+      app.get "/fanout/?" do
         @exchanges = Resque.exchanges
         @queues = Resque.queues
-        erb(File.read(File.join(::Resque::PubsubServer::VIEW_PATH, "index.erb")))
+        erb(File.read(File.join(::Resque::FanoutServer::VIEW_PATH, "index.erb")))
       end
 
       # create new mapping
-      app.post '/pubsub/?' do
+      app.post '/fanout/?' do
         if valid_mapping? params
           Resque.subscribe params[:exchange], :queue => params[:queue], :class => params[:class]
-          redirect u(:pubsub, "?notice=#{URI.escape 'Mapping created'}")
+          redirect u(:fanout, "?notice=#{URI.escape 'Mapping created'}")
         else
-          redirect u(:pubsub, "?error=#{URI.escape 'Invalid Mapping'}")
+          redirect u(:fanout, "?error=#{URI.escape 'Invalid Mapping'}")
         end
       end
 
       # delete mapping
-      app.post '/pubsub/:exchange/:queue/remove' do
+      app.post '/fanout/:exchange/:queue/remove' do
         if valid_mapping? params
           Resque.unsubscribe params[:exchange], :queue => params[:queue]
-          redirect u(:pubsub, "?notice=#{URI.escape 'Mapping removed'}")
+          redirect u(:fanout, "?notice=#{URI.escape 'Mapping removed'}")
         else
-          redirect u(:pubsub, "?error=#{URI.escape 'Invalid Parameters'}")
+          redirect u(:fanout, "?error=#{URI.escape 'Invalid Parameters'}")
         end
       end
 
@@ -45,10 +45,10 @@ module Resque
         end
       end
 
-      app.tabs << "Pubsub"
+      app.tabs << "Fanout"
     end
 
   end
 end
 
-Resque::Server.register Resque::PubsubServer
+Resque::Server.register Resque::FanoutServer

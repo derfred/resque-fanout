@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.name              = "resque-pubsub"
   s.version           = "0.5"
   s.date              = Time.now.strftime('%Y-%m-%d')
-  s.summary           = "Resque Plugin for pubsub routing between queues"
+  s.summary           = "Resque Plugin for fanout routing to multiple queues"
   s.homepage          = "http://github.com/derfred/resque-pubsub"
   s.email             = "ich@derfred.com"
   s.authors           = [ "Frederik Fix" ]

@@ -14,7 +14,7 @@
     background: #E47E74;
   }
 
-  #main form.pubsub-remove {
+  #main form.fanout-remove {
     float: left;
     margin-left: 20px;
     margin-top: -5px;
@@ -41,7 +41,7 @@
 
 <%= display_flash %>
 
-<h1 class='wi'>Pubsub Exchanges</h1>
+<h1 class='wi'>Fanout Exchanges</h1>
 
 <% if @exchanges.empty? %>
   <p class='intro'>There are no exchanges defined</p>
@@ -61,7 +61,7 @@
             <% for queue in exchange[:queues] %>
               <li class="mapping">
                 <span><%= queue[:queue] %><%= "(=> #{queue[:class]})" if queue[:class] %></span>
-                <form method="POST" action="<%= u(:pubsub) %>/<%= exchange[:exchange] %>/<%= queue[:queue] %>/remove" class='pubsub-remove'>
+                <form method="POST" action="<%= u(:fanout) %>/<%= exchange[:exchange] %>/<%= queue[:queue] %>/remove" class='fanout-remove'>
                   <input type='submit' name='' value='Remove Mapping' onclick='return confirm("Are you absolutely sure? This cannot be undone.");' />
                 </form>
               </li>

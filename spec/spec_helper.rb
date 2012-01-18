@@ -1,6 +1,6 @@
 require 'rspec'
 $LOAD_PATH << File.expand_path("../lib", File.dirname(__FILE__))
-require 'resque-pubsub'
+require 'resque-fanout'
 
 RSpec.configure do |config|
   config.before :each do
