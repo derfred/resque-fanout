@@ -5,4 +5,4 @@ require 'resque/server'
 
 require 'resque-fanout/resque_extension'
 require 'resque-fanout/job_extension'
-require 'resque-fanout/pubsub_server'
+require 'resque-fanout/fanout_server'
