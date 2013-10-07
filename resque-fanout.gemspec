@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name              = "resque-fanout"
-  s.version           = "0.5"
+  s.version           = "0.6"
   s.date              = Time.now.strftime('%Y-%m-%d')
   s.summary           = "Resque Plugin for fanout routing to multiple queues"
   s.homepage          = "http://github.com/derfred/resque-fanout"
@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 A Resque plugin that provides endpoints which distributes Jobs submitted to them to (multiple) subscribing queues. Useful for loosely coupled inter-application communication.
 desc
 
-  s.add_development_dependency "rspec", "~> 2.3.0"
+  s.add_development_dependency "rspec", "~> 2.14.0"
   s.add_development_dependency "bundler", ">= 1.0.0"
 
   s.add_runtime_dependency %q<redis>, [">= 2.0.1"]
